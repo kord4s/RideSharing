@@ -29,19 +29,19 @@ public class RidesharingUser {
 
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @JsonManagedReference(value="journeyPickups-user")
     private List<JourneyPickUp> journeyPickUps;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @JsonManagedReference(value="journeys-user")
     private List<Journey> journeys;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @JsonManagedReference(value="cars-user")
     private List<Car> cars;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @JsonManagedReference(value="pendingRequests-user")
     private List<PendingRequest> pendingRequests;
 
 

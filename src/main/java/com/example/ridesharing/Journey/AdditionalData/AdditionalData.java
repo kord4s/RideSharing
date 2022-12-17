@@ -1,6 +1,7 @@
 package com.example.ridesharing.Journey.AdditionalData;
 
 import com.example.ridesharing.Journey.Journey;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -22,7 +23,7 @@ public class AdditionalData {
     private String NOx;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @JsonBackReference(value="additionalData-journey")
     @JoinColumn(name = "journey_id", referencedColumnName = "id")
     private Journey journey;
 

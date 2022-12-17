@@ -22,10 +22,10 @@ public class PickUpPoint {
     private Double YMap;
 
     @OneToMany(mappedBy = "startPoint", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @JsonManagedReference(value="startPoints-journeyPickUps")
     private List<JourneyPickUp> startPoints;
 
     @OneToMany(mappedBy = "endPoint", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @JsonManagedReference(value="endPoints-journeyPickUps")
     private List<JourneyPickUp> endPoint;
 }

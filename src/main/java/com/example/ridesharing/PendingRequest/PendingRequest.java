@@ -2,6 +2,7 @@ package com.example.ridesharing.PendingRequest;
 
 import com.example.ridesharing.Journey.Journey;
 import com.example.ridesharing.User.RidesharingUser;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -19,13 +20,13 @@ public class PendingRequest {
     private Long id;
     private RequestStatus status;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @ManyToOne()
+    @JsonBackReference(value="pendingRequests-user")
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private RidesharingUser user;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @ManyToOne()
+    @JsonBackReference(value="pendingRequests-journey")
     @JoinColumn(name = "journey_id", referencedColumnName = "id")
     private Journey journey;
 }

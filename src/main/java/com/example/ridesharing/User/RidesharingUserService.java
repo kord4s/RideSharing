@@ -14,6 +14,7 @@ public class RidesharingUserService {
         this.ridesharingUserRepository = ridesharingUserRepository;
     }
 
+    ///do testowania tylko
     public RidesharingUser addUser(RidesharingUser user){
         return ridesharingUserRepository.save(user);
     }
@@ -27,4 +28,42 @@ public class RidesharingUserService {
             return true;
         }catch(Exception e){return false;}
     }
+
+    public Boolean register(RidesharingUser user){
+        List<RidesharingUser> users = getAllUsers();
+        for (RidesharingUser ridesharingUser : users) {
+            if (ridesharingUser.getLogin().equals(user.getLogin()) || ridesharingUser.getEmail().equals(user.getEmail())) {
+                return false;
+            }
+        }
+        ridesharingUserRepository.save(user);
+        return true;
+    }
+
+    public Boolean editUser(RidesharingUser dataUser, Long id){
+        RidesharingUser user = ridesharingUserRepository.getOne(id);
+        List<RidesharingUser> users = getAllUsers();
+        for (RidesharingUser ridesharingUser : users) {
+            if (ridesharingUser.getEmail().equals(dataUser.getEmail()) && !ridesharingUser.getId().equals(id)) {
+                return false;
+            }
+        }
+        user.setEmail(dataUser.getEmail());
+        user.setName(dataUser.getName());
+        user.setPassword(dataUser.getPassword());
+        user.setSurname(dataUser.getSurname());
+        ridesharingUserRepository.save(user);
+        return true;
+    }
+
+    public Long login(String login, String password){
+        RidesharingUser user = ridesharingUserRepository.findByLogin(login);
+        if(user.getPassword().equals(password)){
+            return user.getId();
+        }
+        return 0L;
+    }
+
+
+
 }

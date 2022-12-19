@@ -5,4 +5,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RidesharingUserRepository extends JpaRepository<RidesharingUser, Long> {
+    RidesharingUser findByLogin(String login);
 }

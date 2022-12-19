@@ -27,7 +27,6 @@ public class RidesharingUser {
     private String name;
     private String surname;
 
-
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonManagedReference(value="journeyPickups-user")
     private List<JourneyPickUp> journeyPickUps;

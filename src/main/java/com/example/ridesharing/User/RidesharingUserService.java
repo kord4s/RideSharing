@@ -1,5 +1,6 @@
 package com.example.ridesharing.User;
 
+import com.example.ridesharing.Journey.Journey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -62,6 +63,13 @@ public class RidesharingUserService {
             return user.getId();
         }
         return 0L;
+    }
+
+
+    public List<Journey> findPossibleJourneys(double Xmap, double Ymap){
+        String uri = "https://api.openrouteservice.org/v2/directions/driving-car?api_key=5b3ce3597851110001cf6248102ff08a64b64d45bd78062f20d3b9b8&start="+Xmap+","+Ymap+"end=";
+        //zawiera tylko lokalizacje pasazera na ten moment
+        return null;
     }
 
 

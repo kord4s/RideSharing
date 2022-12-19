@@ -29,5 +29,15 @@ public class CarService {
             return true;
         }catch(Exception e){return false;}}
 
-    public List<Car> getAllCars(){ return carRepository.findAll();}
+    public Car editCar(Long id, Car carData ){
+        Car car = carRepository.getOne(id);
+        car.setUser(carData.getUser());
+        car.setModel(carData.getModel());
+        car.setProducer(carData.getProducer());
+        car.setEngineCapacity(carData.getEngineCapacity());
+        car.setEngineType(carData.getEngineType());
+        return carRepository.save(car);
+    }
+
+    public List<Car> getAllCars(){ return carRepository.findAllByOrderByIdAsc();}
 }

@@ -1,6 +1,5 @@
 package com.example.ridesharing.Car;
 
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,13 +26,18 @@ public class CarController {
     }
 
     @DeleteMapping("delete/{id}")
-    public ResponseEntity<Boolean> deleteCar(@PathVariable Long id){
+    public ResponseEntity<Boolean> deleteCar(@PathVariable("id") Long id){
         return new ResponseEntity<>(carService.deleteCarById(id), HttpStatus.OK);
     }
 
     @GetMapping("/get/all")
     public ResponseEntity<List<Car>> getAllCars(){
         return new ResponseEntity<>(carService.getAllCars(), HttpStatus.OK);
+    }
+
+    @PutMapping("/edit/{id}")
+    public ResponseEntity<Car> editCar(@RequestBody Car car, @PathVariable("id") Long id){
+        return new ResponseEntity<>(carService.editCar(id,car), HttpStatus.OK);
     }
 
 

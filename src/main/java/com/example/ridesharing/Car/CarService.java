@@ -31,7 +31,6 @@ public class CarService {
 
     public Car editCar(Long id, Car carData ){
         Car car = carRepository.getOne(id);
-        car.setUser(carData.getUser());
         car.setModel(carData.getModel());
         car.setProducer(carData.getProducer());
         car.setEngineCapacity(carData.getEngineCapacity());

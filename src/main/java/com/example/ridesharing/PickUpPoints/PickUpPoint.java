@@ -28,4 +28,9 @@ public class PickUpPoint {
     @OneToMany(mappedBy = "endPoint", cascade = CascadeType.ALL)
     @JsonManagedReference(value="endPoints-journeyPickUps")
     private List<JourneyPickUp> endPoint;
+
+    public PickUpPoint(Double xmap, Double ymap) {
+        XMap = xmap;
+        YMap = ymap;
+    }
 }

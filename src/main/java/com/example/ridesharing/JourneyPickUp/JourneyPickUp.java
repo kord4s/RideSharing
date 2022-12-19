@@ -4,11 +4,9 @@ import com.example.ridesharing.Journey.Journey;
 import com.example.ridesharing.PickUpPoints.PickUpPoint;
 import com.example.ridesharing.User.RidesharingUser;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Date;
 
 
 @Getter
@@ -44,7 +42,7 @@ public class JourneyPickUp {
     @JoinColumn(name = "journey_id", referencedColumnName = "id")
     private Journey journey;
 
-    private Date date;
+    private String data;
     private String time;
 
 }

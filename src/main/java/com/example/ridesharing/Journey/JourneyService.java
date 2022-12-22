@@ -333,4 +333,17 @@ public class JourneyService {
         }
         return list2;
     }
+
+    Journey finishJourney(Long id){
+        Journey journey = getJourneyByID(id);
+        journey.setStatus(JourneyStatus.FINISHED);
+        return journeyRepository.save(journey);
+    }
+
+    Journey notFinishedJourney(Long id){
+        Journey journey = getJourneyByID(id);
+        journey.setStatus(JourneyStatus.NOT_FINISHED);
+        return journeyRepository.save(journey);
+    }
+
 }

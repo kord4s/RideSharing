@@ -3,10 +3,7 @@ package com.example.ridesharing.PickUpPoints;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,6 +21,11 @@ public class PickUpPointController {
     @PostMapping("/add")
     public ResponseEntity<PickUpPoint> addNewPickUpPoint(Double XMap, Double YMap){
         return new ResponseEntity<>(pickUpPointService.addNewPickUpPoint(XMap,YMap), HttpStatus.OK);
+    }
+
+    @GetMapping("/get/{id}")
+    public ResponseEntity<PickUpPoint> getPickUpPointByID(@PathVariable("id") Long id){
+        return new ResponseEntity<>(pickUpPointService.getPickUpPoint(id), HttpStatus.OK);
     }
 
     /// sortowanie po odleglosci od uzytkownika???

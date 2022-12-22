@@ -21,7 +21,12 @@ public class PickUpPointService {
     }
 
     public PickUpPoint getPickUpPoint(Long id){
-        return pickUpPointRepository.getOne(id);
+        List<PickUpPoint> list = pickUpPointRepository.findAll();
+        for(int i=0; i<list.size(); i++){
+            if(list.get(i).getId().equals(id))
+                return list.get(i);
+        }
+        return null;
     }
 
     public List<PickUpPoint> getAllPickUpPoints(){

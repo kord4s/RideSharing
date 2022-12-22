@@ -1,6 +1,7 @@
 package com.example.ridesharing.PickUpPoints;
 
 import com.example.ridesharing.JourneyPickUp.JourneyPickUp;
+import com.example.ridesharing.PendingRequest.PendingRequest;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -21,6 +22,8 @@ public class PickUpPoint {
     private Double XMap;
     private Double YMap;
 
+    private PickUpPointStatus Status;
+
     @OneToMany(mappedBy = "startPoint", cascade = CascadeType.ALL)
     @JsonManagedReference(value="startPoints-journeyPickUps")
     private List<JourneyPickUp> startPoints;
@@ -29,8 +32,14 @@ public class PickUpPoint {
     @JsonManagedReference(value="endPoints-journeyPickUps")
     private List<JourneyPickUp> endPoint;
 
+    @OneToMany(mappedBy = "startPoint", cascade = CascadeType.ALL)
+    @JsonManagedReference(value="startPoints-pendingRequest")
+    private List<PendingRequest> pendingRequestsStartPoints;
+
+
     public PickUpPoint(Double xmap, Double ymap) {
         XMap = xmap;
         YMap = ymap;
+        Status = PickUpPointStatus.START;
     }
 }

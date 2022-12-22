@@ -42,7 +42,15 @@ public class JourneyPickUp {
     @JoinColumn(name = "journey_id", referencedColumnName = "id")
     private Journey journey;
 
+
+    private Integer pickUpOrder;
     private String data;
     private String time;
+
+    public JourneyPickUp(PickUpPoint startPoint, PickUpPoint endPoint){
+        this.startPoint=startPoint;
+        this.endPoint=endPoint;
+    }
+
 
 }

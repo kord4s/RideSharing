@@ -1,8 +1,11 @@
 package com.example.ridesharing.Journey;
 
 import com.example.ridesharing.Car.CarRepository;
+import com.example.ridesharing.Journey.AdditionalData.AdditionalDataService;
 import com.example.ridesharing.JourneyPickUp.JourneyPickUp;
+import com.example.ridesharing.JourneyPickUp.JourneyPickUpRepository;
 import com.example.ridesharing.JourneyPickUp.JourneyPickUpService;
+import com.example.ridesharing.PendingRequest.PendingRequestRepository;
 import com.example.ridesharing.PickUpPoints.PickUpPoint;
 import com.example.ridesharing.PickUpPoints.PickUpPointRepository;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -20,17 +23,26 @@ public class JourneyService {
 
     private final JourneyPickUpService journeyPickUpService;
 
+    private final JourneyPickUpRepository journeyPickUpRepository;
+
     private final PickUpPointRepository pickUpPointRepository;
+
+    private final PendingRequestRepository pendingRequestRepository;
+
+    private final AdditionalDataService additionalDataService;
 
 
 
 
     @Autowired
-    public JourneyService(JourneyRepository journeyRepository, CarRepository carRepository, JourneyPickUpService journeyPickUpService, PickUpPointRepository pickUpPointRepository) {
+    public JourneyService(JourneyRepository journeyRepository, CarRepository carRepository, JourneyPickUpService journeyPickUpService, JourneyPickUpRepository journeyPickUpRepository, PickUpPointRepository pickUpPointRepository, PendingRequestRepository pendingRequestRepository, AdditionalDataService additionalDataService) {
         this.journeyRepository = journeyRepository;
         this.carRepository = carRepository;
         this.journeyPickUpService = journeyPickUpService;
+        this.journeyPickUpRepository = journeyPickUpRepository;
         this.pickUpPointRepository = pickUpPointRepository;
+        this.pendingRequestRepository = pendingRequestRepository;
+        this.additionalDataService = additionalDataService;
     }
 
 
@@ -334,9 +346,29 @@ public class JourneyService {
         return list2;
     }
 
+    Boolean deleteJourney(Long journeyID){
+        try{
+            Journey journey = journeyRepository.getById(journeyID);
+            for(int i=0; i<journey.getJourneyPickUps().size(); i++){
+                journeyPickUpRepository.delete(journey.getJourneyPickUps().get(i));
+            }
+            for(int i=0; i<journey.getPendingRequests().size(); i++){
+                pendingRequestRepository.delete(journey.getPendingRequests().get(i));
+            }
+            journeyRepository.delete(journey);
+        }catch(Exception e){
+            return false;
+        }
+
+        return true;
+    }
+
+
+
     Journey finishJourney(Long id){
         Journey journey = getJourneyByID(id);
         journey.setStatus(JourneyStatus.FINISHED);
+        journey.setAdditionalData(additionalDataService.createAdditionalData(id));
         return journeyRepository.save(journey);
     }
 

@@ -21,6 +21,7 @@ public class AdditionalData {
     private String SOx;
     private String CO;
     private String NOx;
+    private Double usedFuel;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JsonBackReference(value="additionalData-journey")

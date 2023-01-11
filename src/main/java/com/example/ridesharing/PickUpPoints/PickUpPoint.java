@@ -22,6 +22,8 @@ public class PickUpPoint {
     private Double XMap;
     private Double YMap;
 
+    private String name;
+
     private PickUpPointStatus Status;
 
     @OneToMany(mappedBy = "startPoint", cascade = CascadeType.ALL)

@@ -86,9 +86,17 @@ public class JourneyService {
         return journeyRepository.save(journey);
     }
 
-    public Journey finishAddingJourney(Long id, JourneyPickUp journeyPickUp, Long startID, Long endID){
+    public Journey finishAddingJourneyWithExistingPickUpPoint(Long id, JourneyPickUp journeyPickUp, Long startID, Long endID){
         Journey journey = journeyRepository.getOne(id);
-        journeyPickUp=journeyPickUpService.addFirstJourneyPickUp(journeyPickUp,journey,startID,endID);
+        journeyPickUp=journeyPickUpService.addFirstJourneyPickUpWithExistingPoint(journeyPickUp,journey,startID,endID);
+        journey.getJourneyPickUps().add(journeyPickUp);
+        journey.setDistance(getDistance(journey.getJourneyPickUps().get(0)));
+        return journeyRepository.save(journey);
+    }
+
+    public Journey finishAddingJourneyWithNewPickUpPoint(Long id, JourneyPickUp journeyPickUp, Double XMap, Double YMap, Long endID){
+        Journey journey = journeyRepository.getOne(id);
+        journeyPickUp=journeyPickUpService.addFirstJourneyPickUpWithNewPoint(journeyPickUp,journey,XMap,YMap, endID);
         journey.getJourneyPickUps().add(journeyPickUp);
         journey.setDistance(getDistance(journey.getJourneyPickUps().get(0)));
         return journeyRepository.save(journey);

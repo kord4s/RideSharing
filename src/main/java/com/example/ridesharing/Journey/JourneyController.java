@@ -35,10 +35,16 @@ public class JourneyController {
     }
 
 
-    @PutMapping("/{id}/addFirstPickUpPoint")
-    public ResponseEntity<Journey> addPickUpPoint(@PathVariable("id") Long id, @RequestBody JourneyPickUp journeyPickUp, @RequestParam Long startID, @RequestParam Long endID){
-        return new ResponseEntity<>(journeyService.finishAddingJourney(id, journeyPickUp, startID, endID),HttpStatus.OK);
+    @PutMapping("/{id}/addFirstPickUpPoint/exist")
+    public ResponseEntity<Journey> addExistingPickUpPoint(@PathVariable("id") Long id, @RequestBody JourneyPickUp journeyPickUp, @RequestParam Long startID, @RequestParam Long endID){
+        return new ResponseEntity<>(journeyService.finishAddingJourneyWithExistingPickUpPoint(id, journeyPickUp, startID, endID),HttpStatus.OK);
     }
+
+    @PutMapping("/{id}/addFirstPickUpPoint/new")
+    public ResponseEntity<Journey> addNewPickUpPoint(@PathVariable("id") Long id, @RequestBody JourneyPickUp journeyPickUp, @RequestParam Double XMap, @RequestParam Double YMap, @RequestParam Long endID){
+        return new ResponseEntity<>(journeyService.finishAddingJourneyWithNewPickUpPoint(id, journeyPickUp, XMap, YMap, endID),HttpStatus.OK);
+    }
+
 
     @PutMapping("/{id}/addNextPickUpPoint/exist")
     public ResponseEntity<Journey> addNextExistingPickUpPoint(@PathVariable("id") Long id, @RequestBody JourneyPickUp journeyPickUp, @RequestParam Long startID, @RequestParam Long userID){

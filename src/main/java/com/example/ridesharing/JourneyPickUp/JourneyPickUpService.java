@@ -24,7 +24,7 @@ public class JourneyPickUpService {
         this.pickUpPointService = pickUpPointService;
     }
 
-    public JourneyPickUp addFirstJourneyPickUp(JourneyPickUp journeyPickUp, Journey journey, Long startID, Long endID){
+    public JourneyPickUp addFirstJourneyPickUpWithExistingPoint(JourneyPickUp journeyPickUp, Journey journey, Long startID, Long endID){
         journeyPickUp.setUser(journey.getUser());
         journeyPickUp.setStartPoint(pickUpPointRepository.getOne(startID));
         journeyPickUp.setEndPoint(pickUpPointRepository.getOne(endID));
@@ -32,6 +32,16 @@ public class JourneyPickUpService {
         journeyPickUp.setJourney(journey);
         return journeyPickUpRepository.save(journeyPickUp);
     }
+
+    public JourneyPickUp addFirstJourneyPickUpWithNewPoint(JourneyPickUp journeyPickUp, Journey journey, Double XMap, Double YMap, Long endID){
+        journeyPickUp.setUser(journey.getUser());
+        journeyPickUp.setStartPoint(pickUpPointService.addNewPickUpPoint(XMap,YMap));
+        journeyPickUp.setEndPoint(pickUpPointRepository.getOne(endID));
+        journeyPickUp.setPickUpOrder(0);
+        journeyPickUp.setJourney(journey);
+        return journeyPickUpRepository.save(journeyPickUp);
+    }
+
 
     public JourneyPickUp addPassengerJourneyPickUpWithExistingPoint(JourneyPickUp journeyPickUp, Journey journey, Long startID, Long userID){
         journeyPickUp.setUser(ridesharingUserRepository.getOne(userID));

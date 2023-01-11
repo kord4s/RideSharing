@@ -60,6 +60,11 @@ public class JourneyController {
         return new ResponseEntity<>(journeyService.findPossibleJourneysWithExistingPickUpPoint(startID,endID), HttpStatus.OK);
     }
 
+    @GetMapping("/getPossibleJourneys/new")
+    public ResponseEntity<List<Journey>> findAllPossibleJourneys(@RequestParam Double XMap, @RequestParam Double YMap, @RequestParam Long endID){
+        return new ResponseEntity<>(journeyService.findPossibleJourneysWithNewPickUpPoint(XMap, YMap, endID), HttpStatus.OK);
+    }
+
     @PutMapping("/{id}/finishJourney")
     public ResponseEntity<Journey> finishJourney(@PathVariable Long id){
         return new ResponseEntity<>(journeyService.finishJourney(id),HttpStatus.OK);
@@ -70,9 +75,9 @@ public class JourneyController {
         return new ResponseEntity<>(journeyService.notFinishedJourney(id),HttpStatus.OK);
     }
 
-    @GetMapping("/getPossibleJourneys/new")
-    public ResponseEntity<List<Journey>> findAllPossibleJourneys(@RequestParam Double XMap, @RequestParam Double YMap, @RequestParam Long endID){
-        return new ResponseEntity<>(journeyService.findPossibleJourneysWithNewPickUpPoint(XMap, YMap, endID), HttpStatus.OK);
+    @DeleteMapping("/{id}/deleteJourney")
+    public ResponseEntity<Boolean> deleteJourney(@PathVariable Long id){
+        return new ResponseEntity<>(journeyService.deleteJourney(id), HttpStatus.OK);
     }
 
 }

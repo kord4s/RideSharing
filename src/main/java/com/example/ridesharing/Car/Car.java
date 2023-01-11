@@ -25,7 +25,6 @@ public class Car {
     private String model;
     private typeOfEngine engineType;
     private Double engineCapacity;
-
     @ManyToOne()
     @JsonBackReference(value="cars-user")
     @JoinColumn(name = "user_id", referencedColumnName = "id")
